@@ -72,8 +72,7 @@ origin, the *y*-axis, and point (*x*,*y*,*z*) form a right triangle, and
 a similar right triangle is formed with (*x’*,*y’*,*z’*). Thus the
 relative proportions are maintained:
 
-\\[\\begin{aligned} \\frac{y'}{z'} &= \\frac{y}{z} \\\\ y' &= \\frac{y
-z'}{z}. \\end{aligned}\\]
+![equation](http://www.sciweavers.org/upload/Tex2Img_1613578607/render.png)
 
 So to project a 3D coordinate to 2D, we scale a coordinate by the screen
 distance *z’*. Since *z’* is a fixed constant, and not functionally a
