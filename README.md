@@ -42,10 +42,7 @@ in(B),t=c*h*g-f*        e;int x=40+30*D*
 
 …and the output, animated in Javascript:
 
-toggle animation
-
-``` {#d style="background-color:#000; color:#ccc; font-size: 10pt;"}
-```
+![Alt Text](https://media.giphy.com/media/4ampCUXWkDITsLmRj9/giphy.gif)
 
 At its core, it’s a framebuffer and a Z-buffer into which I render
 pixels. Since it’s just rendering relatively low-resolution ASCII art, I
