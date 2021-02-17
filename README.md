@@ -5,6 +5,8 @@ Donut math: how donut.c works
 This famous code was written by Andy Sloane.
 It was written in the year 2006 but has recently been re surfacing on the internet.
 
+This beautiful and elegant code has great mathematical principles. It is also one of the most famous ASCII animations.
+
 This is the code:
 
 ``` {style="font-size: 10pt;"}
@@ -31,7 +33,7 @@ This is the code:
                                        ..,--------,*/
 ```
 
-…and the output, animated on my terminal is:
+…and the animated output, on my terminal is:
 
 ![Alt Text](https://media.giphy.com/media/4ampCUXWkDITsLmRj9/giphy.gif)
 
