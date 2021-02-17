@@ -45,6 +45,6 @@ brightest. No raytracing required.
 
 
 The Javascript source for both the ASCII and canvas rendering is [right
-here](/js/donut.js).
+here](https://www.a1k0n.net/js/donut.js).
 
 The complete explanation is provided by the creator himself at [a1k0n.net](https://www.a1k0n.net/2011/07/20/donut-math.html)
