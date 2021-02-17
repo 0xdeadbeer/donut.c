@@ -40,7 +40,9 @@ This is the code:
 At its core, it’s a framebuffer and a Z-buffer into which the pixels are render. Since it’s just rendering relatively low-resolution ASCII art, its a cheeky
  cheat. All it does is plot pixels along the surface of the
 torus at fixed-angle increments, and does it densely enough that the
-final result looks solid. The “pixels” it plots are ASCII characters
+final result looks solid. 
+
+The “pixels” it plots are ASCII characters
 corresponding to the illumination value of the surface at each point:
 `.,-~:;=!*#$@` from dimmest to
 brightest. No raytracing required.
