@@ -2,7 +2,8 @@
 Donut math: how donut.c works
 =============================
 
-This famous code was written by Andy Sloane
+This famous code was written by Andy Sloane.
+It was written in the 2006 but has recently been re surfacing on the internet.
 
 This is the code:
 
