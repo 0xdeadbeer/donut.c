@@ -1,4 +1,3 @@
-[a1k0n.net](/) [About](/about.html)
 
 Donut math: how donut.c works
 =============================
@@ -48,4 +47,4 @@ brightest. No raytracing required.
 The Javascript source for both the ASCII and canvas rendering is [right
 here](/js/donut.js).
 
-The complete explanation is provided by the creator himself at [a1k0n.net](/)
+The complete explanation is provided by the creator himself at [a1k0n.net](https://www.a1k0n.net/2011/07/20/donut-math.html)
