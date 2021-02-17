@@ -42,7 +42,7 @@ At its core, it’s a framebuffer and a Z-buffer into which the pixels are rende
 torus at fixed-angle increments, and does it densely enough that the
 final result looks solid. The “pixels” it plots are ASCII characters
 corresponding to the illumination value of the surface at each point:
-`.,-~:;=!*#$@`{.language-plaintext .highlighter-rouge} from dimmest to
+`.,-~:;=!*#$@` from dimmest to
 brightest. No raytracing required.
 
 
