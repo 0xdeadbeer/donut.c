@@ -1,76 +1,69 @@
-/*
-The best version of the famous donut.c by Andy Sloane.
-
-This is the original "donut-shaped" code written by Andy:
-*/
-
-//             k;double sin()
-//         ,cos();main(){float A=
-//       0,B=0,i,j,z[1760];char b[
-//     1760];printf("\x1b[2J");for(;;
-//  ){memset(b,32,1760);memset(z,0,7040)
-//  ;for(j=0;6.28>j;j+=0.07)for(i=0;6.28
-// >i;i+=0.02){float c=sin(i),d=cos(j),e=
-// sin(A),f=sin(j),g=cos(A),h=d+2,D=1/(c*
-// h*e+f*g+5),l=cos      (i),m=cos(B),n=s\
-//in(B),t=c*h*g-f*        e;int x=40+30*D*
-//(l*h*m-t*n),y=            12+15*D*(l*h*n
-//+t*m),o=x+80*y,          N=8*((f*e-c*d*g
-// )*m-c*d*e-f*g-l        *d*n);if(22>y&&
-// y>0&&x>0&&80>x&&D>z[o]){z[o]=D;;;b[o]=
-// ".,-~:;=!*#$@"[N>0?N:0];}}/*#****!!-*/
-//  printf("\x1b[H");for(k=0;1761>k;k++)
-//   putchar(k%80?b[k]:10);A+=0.04;B+=
-//     0.02;}}/*****####*******!!=;:~
-//       ~::==!!!**********!!!==::-
-//         .,~~;;;========;;;:~-.
-//             ..,--------,*/
-
 #include <stdio.h>
-#include <math.h>
 #include <string.h>
+#include <math.h>
 #include <unistd.h>
 
+#define clrscr() printf("\e[1;1H\e[2J")
+
 int main() {
-    float A = 0, B = 0;
-    float i, j;
-    int k;
-    float z[1760];
-    char b[1760];
-    printf("[2J");
-    for (;;) {
-        memset(b, 32, 1760);
-        memset(z, 0, 7040);
-        for (j = 0; j < 6.28; j += 0.07) {
-            for (i = 0; i < 6.28; i += 0.02) {
-                float c = sin(i);
-                float d = cos(j);
-                float e = sin(A);
-                float f = sin(j);
-                float g = cos(A);
-                float h = d + 2;
-                float D = 1 / (c * h * e + f * g + 5);
-                float l = cos(i);
-                float m = cos(B);
-                float n = sin(B);
-                float t = c * h * g - f * e;
-                int x = 40 + 30 * D * (l * h * m - t * n);
-                int y = 12 + 15 * D * (l * h * n + t * m);
-                int o = x + 80 * y;
-                int N = 8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n);
-                if (22 > y && y > 0 && x > 0 && 80 > x && D > z[o]) {
-                    z[o] = D;
-                    b[o] = ".,-~:;=!*#$@"[N > 0 ? N : 0];
-                }
-            }
-        }
-        printf("[H");
-        for (k = 0; k < 1761; k++) {
-            putchar(k % 80 ? b[k] : 10);
-            A += 0.00004;
-            B += 0.00002;
-        }
-        usleep(30000);
+  char output_char = '.';
+
+  int x_size = 150; 
+  int y_size = 50; 
+  const int output_size = x_size * y_size; 
+
+  float r1 = 5;
+  float r2 = 10;  
+
+  char output_buffer[output_size];
+  float z_buffer[output_size]; 
+
+  float a = 0; 
+  float b = 0; 
+
+  float a_updater = 0.03; 
+  float b_updater = 0.07;
+
+  for (;;) {
+    memset(&output_buffer, 0x20, output_size * sizeof(char));
+    memset(&z_buffer, 0x00, output_size * sizeof(float)); 
+
+    for (float theta = 0; theta < 6.28; theta += 0.01) {
+      for (float phi = 0; phi < 6.28; phi += 0.07) {
+        int x = r2 + (r1 * cos(theta)); 
+        int y = r2 + (r1 * sin(theta));
+        int z = 0; 
+
+        // rotate around the y axis 
+        int r1_x = x * cos(phi); 
+        int r1_y = y; 
+        int r1_z = x * -sin(phi);
+
+        // rotate it around the x axis with A angle
+        int r2_x = r1_x; 
+        int r2_y = (r1_y * cos(a) + (r1_z * sin(a)));
+        int r2_z = (r1_y * -sin(a) + (r1_z * cos(a)));
+
+        int position = (r2_y * x_size) + r2_x; 
+        position += x_size/2; 
+        position += y_size/2 * x_size;
+
+        output_buffer[position] = output_char;
+      }
     }
-    return 0;
+
+
+    for (int i = 0; i < output_size; i++) {
+      int character = i % 150 ? output_buffer[i] : 10; 
+      putchar(character);
+    }
+
+    a += a_updater; 
+    b += b_updater; 
+
+    usleep (5000); 
+    clrscr();
+  }
+
+  putchar(10);
 }
