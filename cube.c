@@ -29,6 +29,12 @@ int main() {
   float a = 0; 
   float a_updater = 0.03; 
 
+  float b = 0; 
+  float b_updater = 0.07;
+
+  // 3d-2d projection 
+  float distance_z = 50.; 
+  
   for (;;) {
     memset(&output_buffer, 0x20, output_size * sizeof(char)); 
     memset(&z_buffer, 0x00, output_size * sizeof(float)); 
@@ -38,24 +44,29 @@ int main() {
         for (float z = z_starter; z <= z_dimensions; z++) {
           
           // rotate around the x axis 
-          int r1_x = x; 
-          int r1_y = (y * cos(a)) + (z * sin(a)); 
-          int r1_z = (y * -sin(a)) + (z * cos(a)); 
-          int ooz = 1/r1_z; 
+          float r1_x = x; 
+          float r1_y = (y * cos(a)) + (z * sin(a)); 
+          float r1_z = (y * -sin(a)) + (z * cos(a)); 
+          float ooz = 1/r1_z; 
 
-          int position = (r1_y * x_size) + r1_x; 
+          // rotate around the y axis 
+          float r2_x = (r1_x * cos(b)) - (r1_z * sin(b)); 
+          float r2_y = r1_y; 
+          float r2_z = (r1_x * sin(b)) + (r1_z * cos(b)); 
+
+          // distance the z 
+          r2_z -= distance_z;
+
+          // project the 3d point to a 2d terminal
+          int x_projected = (int) (r2_x / (r2_z / distance_z)); 
+          int y_projected = (int) (r2_y / (r2_z / distance_z)); 
+
+          // calculate the position in the buffer
+          int position = (y_projected * x_size) + x_projected; 
           position += x_size/2; 
           position += y_size/2 * x_size; 
 
-          // float L = cosphi*costheta*sinB - cosA*costheta*sinphi - sinA*sintheta + cosB*(cosA*sintheta - costheta*sinA*sinphi);
-
-          // if (L > 0) {
-          //   if (ooz > z_buffer[position]) {
-          //     z_buffer[position] = ooz; 
-          //     int luminance_index = L*8; 
-          //     output_buffer[position] = ".,-~:;=!*#$@"[luminance_index]; 
-          //   }
-          // }
+          output_buffer[position] = '.';
         }
       }
     }
@@ -65,10 +76,11 @@ int main() {
       putchar(character); 
     }
 
-    usleep(10000); 
+    usleep(20000); 
     clrscr();
 
     a += a_updater;
+    b += b_updater; 
 
   }
 

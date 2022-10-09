@@ -4,10 +4,10 @@ all:
 	gcc donut.c -o donut -lm 
 	gcc cube.c -o cube -lm  
 
-	./donut
+	./cube
 
 debug:
 	gcc donut.c -o gonut -lm $(DEBUGFLAGS)
 	gcc cube.c -o cube -lm 
 
-	./donut
+	./cube
