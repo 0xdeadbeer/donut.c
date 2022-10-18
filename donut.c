@@ -43,13 +43,15 @@ int main() {
 
         // rotate around the x axis (rotate the donut) 
         float r2_x = r1_x; 
-        float r2_y = (r1_y * cos(a) + (r1_z * sin(a)));
-        float r2_z = (r1_y * -sin(a) + (r1_z * cos(a)));
+        float r2_y = (r1_y * cos(a)) + (r1_z * sin(a));
+        float r2_z = (r1_y * -sin(a)) + (r1_z * cos(a));
 
         // project the 3D coordinates to 2D coordinates        
         // int x_projected = 
         float distance_z = 100; 
         r2_z = r2_z - distance_z; 
+        float ooz = 1/r2_z;
+        ooz += 100;
 
         int x_projected = (int) (r2_x / (r2_z / distance_z));
         int y_projected = (int) (r2_y / (r2_z / distance_z));
@@ -59,9 +61,28 @@ int main() {
         position += x_size/2; 
         position += y_size/2 * x_size;
 
-        if (r2_z < z_buffer[position]) {
-          output_buffer[position] = output_char;
-          z_buffer[position] = r2_z;
+        // calculate the luminance
+        float nx = cos(theta); 
+        float ny = sin(theta); 
+        float nz = 0; 
+
+        float nx_1 = nx * cos(phi); 
+        float ny_1 = ny; 
+        float nz_1 = nx * -sin(phi); 
+
+        float nx_2 = nx_1; 
+        float ny_2 = (ny_1 * cos(a)) + (nz_1 * sin(a));
+        float nz_2 = (ny_1 * -sin(a)) + (nz_1 * cos(a)); 
+
+        float L = nx_2 * 0 + ny_2 * 1 + nz_2 * -1; 
+
+        if (L < 0) 
+          L = 0; 
+
+        if (ooz > z_buffer[position]) {
+          int luminance_index = L*8; 
+          output_buffer[position] = ".,-~:;=!*#$@"[luminance_index];
+          z_buffer[position] = ooz;
         }
       }
     }
